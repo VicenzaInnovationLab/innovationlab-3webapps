@@ -33,6 +33,9 @@ come distribuire il progetto su un sistema live.
     * `pvout.tif` - potenziale solare fotovoltaico annuo, **kWh/m<sup>2</sup>**. Licenza [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attributo: *I dati ottenuti dalla Global Solar ATLAS 2.0, una Web App gratuita, sviluppata e gestita dalla società SolarGis s.r.o. a nome del Gruppo della Banca mondiale, utilizzando i dati di Solargis, con finanziamenti forniti dal programma di assistenza per il settore dell'energia (ESMAP). Per ulteriori informazioni: https://globalsolaratlas.info*
     * `viirs.tif` - immagine composita di radianza mediana annua, **nW/(cm<sup>2</sup>×sr)**, creata dai dati dell'osservazione notturna della Terra **VIIRS Stray Light Corrected Nighttime Day/Night Band Composites Version 1** tramite [Google Earth Engine](https://developers.google.com/earth-engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMSLCFG).
     * `worldpop.tif` - WorldPop Global Project Population Data: popolazione residenziale stimata per 2020 su una grigliata di 100x100 m. Licenza [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attributo: www.worldpop.org
+* `processing`
+  * `vector_prep.py` - crea un nuovo dataset georeferenziato `data/output/istat_com_pop.json` che contiene le colonne necessarie come i nomi di comuni, popolazione, ecc.
+
 
 ### Prerequisiti
 

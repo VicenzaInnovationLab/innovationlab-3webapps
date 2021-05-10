@@ -1,13 +1,4 @@
-NUTS1 2010;NUTS1 2021;"Codice 
-ripartizione 
-geografica";"Ripartizione geografica
-(Maiuscolo)";Ripartizione geografica;NUTS2 2010 (a);NUTS2 2021 (a);Codice regione;"Regione
-(Maiuscolo)";Regione;Tipologia Regione;NUTS3 2010;NUTS3 2021;"Codice dell'unità territoriale sovracomunale 
-amministrativamente vigente";"Codice dell'unità territoriale sovracomunale 
-valida a fini statistici";Unità territoriale sovracomunale;;Tipologia unità territoriale sovracomunale ;Sigla automobilistica;Codice provincia (Storico)
-NUTS1_2010;NUTS1_2021;COD_RIP ;"DEN_RIP
-(Maiuscolo)";DEN_RIP;NUTS2_2010;NUTS2_2021;COD_REG;"DEN_REG
-(Maiuscolo)";DEN_REG;TIPO_REG;NUTS3_2010;NUTS3_2021;COD_UTS_AM;COD_UTS_ST;DEN_UTS;;TIPO_UTS;Sigla automobilistica;COD_PROV_Storico
+NUTS1_2010;NUTS1_2021;COD_RIP ;"DEN_RIP (Maiuscolo)";DEN_RIP;NUTS2_2010;NUTS2_2021;COD_REG;"DEN_REG (Maiuscolo)";DEN_REG;TIPO_REG;NUTS3_2010;NUTS3_2021;COD_UTS_AM;COD_UTS_ST;DEN_UTS;;TIPO_UTS;Sigla automobilistica;COD_PROV_Storico
 ITC;ITC;1;NORD-OVEST;Nord-ovest;ITC1;ITC1;01;PIEMONTE;Piemonte;1;ITC11;ITC11;201;201;Torino;(b);Citta metropolitana;TO;001
 ITC;ITC;1;NORD-OVEST;Nord-ovest;ITC1;ITC1;01;PIEMONTE;Piemonte;1;ITC12;ITC12;002;002;Vercelli;;Provincia;VC;002
 ITC;ITC;1;NORD-OVEST;Nord-ovest;ITC1;ITC1;01;PIEMONTE;Piemonte;1;ITC15;ITC15;003;003;Novara;;Provincia;NO;003
