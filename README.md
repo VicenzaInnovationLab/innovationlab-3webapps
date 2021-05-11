@@ -35,6 +35,7 @@ come distribuire il progetto su un sistema live.
     * `worldpop.tif` - WorldPop Global Project Population Data: popolazione residenziale stimata per 2020 su una grigliata di 100x100 m. Licenza [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attributo: www.worldpop.org
 * `processing`
   * `vector_prep.py` - crea un nuovo dataset georeferenziato `data/output/istat_com_pop.json` che contiene le colonne necessarie come i nomi di comuni, popolazione, ecc.
+  * `raster_stats.py` - calcola le statistiche zonali su raster tematici d'input. 
 
 
 ### Prerequisiti
