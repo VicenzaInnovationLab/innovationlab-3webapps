@@ -6,7 +6,7 @@ import plotly.express as px
 
 # apri il dataset
 app_list = ["pvout", "viirs", "ghm"]
-app_name = app_list[0]
+app_name = app_list[1]
 csv_path = Path.cwd() / ".." / "data" / "output" / f"stats_{app_name}.csv"
 df = pd.read_csv(csv_path, sep=",", na_filter=False, index_col=0)
 df["median"] = df["median"].apply(pd.to_numeric)
@@ -16,7 +16,7 @@ df["pop"].replace(-1, np.NaN, inplace=True)
 # web app
 pop_st = df["pop"].describe()  # statistiche descrittive per marker size
 
-fig = px.scatter(df, title=app_name, x="median", y="std", color="median",
+fig = px.scatter(df, title=app_name, x="median", y="std", color="pop",
                  hover_data=df,
                  size=np.where(
                          df["pop"].isna(),
