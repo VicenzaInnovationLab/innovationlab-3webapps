@@ -1,3 +1,5 @@
+import os
+
 from pathlib import Path
 
 import dash
@@ -48,9 +50,8 @@ df_reg = df.loc[(df["cod_com"].isin([
 
 # web app
 app = dash.Dash(name=__name__,
-                title=bd["title"],
-                assets_folder="static",
-                assets_url_path="static")
+                title=bd["title"]
+                )
 
 pop_st = df["pop"].describe()  # statistiche descrittive per marker size
 
@@ -90,6 +91,8 @@ fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species",
 """
 app.layout = html.Div([
         html.H1(bd["title"]),
+        dcc.Markdown(bd["bando"]),
+        dcc.Markdown("![Logos di creatori](assets/logos.png)"),
         dcc.Markdown(bd["intro"]),
         dcc.Markdown("## Comuni in provincia di Vicenza"),
         dcc.Markdown(bd["filler"]),
@@ -102,7 +105,8 @@ app.layout = html.Div([
         dcc.Graph(figure=fig_reg),
         dcc.Markdown(bd["filler"]),
         dcc.Markdown("## Descrizione della metodica"),
-        dcc.Markdown(bd["filler"])
+        dcc.Markdown(bd["filler"]),
+        dcc.Markdown(bd["icons"])
 ])
 
 if __name__ == '__main__':
