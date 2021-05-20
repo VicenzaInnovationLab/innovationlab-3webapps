@@ -6,5 +6,15 @@
     --secondary-text: #757575;
 }
 /* || General styles */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+img {max-width: 900px; height: auto;}
 
 /* || Header and Main Navigation */
