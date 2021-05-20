@@ -172,7 +172,7 @@ for f in [fig_vi, fig_100k, fig_reg]:
             dragmode=False,
             separators=",",
             hoverlabel=dict(bgcolor="white",
-                            namelength=-1)
+                            namelength=0)
     )
     f.update_xaxes(title_font_family='"Roboto", sans-serif',
                    title_text="Valore mediano",
