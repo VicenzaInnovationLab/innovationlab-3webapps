@@ -5,12 +5,11 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 import numpy as np
-import pandas
 import pandas as pd
 import plotly.express as px
 
 from content import body
-
+from functions import pop_size, text_label
 
 ####################
 # PARAMETRI INIZIALI
@@ -21,29 +20,43 @@ colors = dict(primary="#303f9f", accent="#ffc107",
 app_list = ["pvout", "viirs", "ghm"]
 app_name = app_list[1]
 
+list_5com = [
+        24036,  # Creazzo
+        24103,  # Sovizzo
+        24004,  # Altavilla Vicentina
+        24108,  # Torri di Quartesolo
+        24116,  # Vicenza
+]
+
+list_regcom = [
+        42002,  # Ancona
+        7003,   # Aosta
+        72006,  # Bari
+        37006,  # Bologna
+        92009,  # Cagliari
+        70006,  # Campobasso
+        79023,  # Catanzaro
+        48017,  # Firenze
+        10025,  # Genova
+        66049,  # L'Aquila
+        15146,  # Milano
+        63049,  # Napoli
+        82053,  # Palermo
+        54039,  # Perugia
+        76063,  # Potenza
+        58091,  # Roma
+        1272,   # Torino
+        22205,  # Trento
+        32006,  # Trieste
+        27042,  # Venezia
+]
+
+tooltip_col = ["den_com", "sigla", "pop", "median", "std"]
 
 ####################
 # IMPLEMENTAZIONE
 ####################
 
-def pop_size(dataframe: pandas.DataFrame) -> np.ndarray:
-    """Estimate a size for a graph point based on city population"""
-    pop_st = dataframe["pop"].describe()  # statistiche per marker size
-    output = np.where(
-            dataframe["pop"].isna(),
-            1,
-            dataframe["pop"].apply(
-                    lambda x: (x - pop_st["mean"]) / pop_st["std"])
-            )
-    return 2 + output
-
-
-def text_label(dataframe: pandas.DataFrame, col: str):
-    """Estimate a size for a graph point based on city population"""
-    if dataframe[col] == 1:
-        return dataframe["den_com"]
-    else:
-        return None
 
 
 # Aprire il dataset e fare pre-elaborazione
@@ -59,42 +72,15 @@ df["m_size"] = pop_size(df)  # marker size for visualization
 
 # Provincia VI
 df_vi = df.loc[(df["cod_prov"] == 24)].copy()
-df_vi["m_color_5com"] = np.where(df_vi["cod_com"].isin([
-        24036,  # Creazzo
-        24103,  # Sovizzo
-        24004,  # Altavilla Vicentina
-        24108,  # Torri di Quartesolo
-        24116,  # Vicenza
-]), True, False)
+df_vi["is_labeled"] = np.where(df_vi["cod_com"].isin(list_5com), True, False)
 
 # Comuni italiani > 100k abitanti
 df_100k = df.loc[(df["pop"] >= 100000)].copy()
-df_100k["m_color_vicenza"] = np.where(df_100k["cod_com"] == 24116, True, False)
+df_100k["is_labeled"] = np.where(df_100k["cod_com"] == 24116, True, False)
 
 # Capoluoghi regionali
-df_reg = df.loc[(df["cod_com"].isin([
-        42002,  # Ancona
-        7003,  # Aosta
-        72006,  # Bari
-        37006,  # Bologna
-        92009,  # Cagliari
-        70006,  # Campobasso
-        79023,  # Catanzaro
-        48017,  # Firenze
-        10025,  # Genova
-        66049,  # L'Aquila
-        15146,  # Milano
-        63049,  # Napoli
-        82053,  # Palermo
-        54039,  # Perugia
-        76063,  # Potenza
-        58091,  # Roma
-        1272,  # Torino
-        22205,  # Trento
-        32006,  # Trieste
-        27042,  # Venezia
-]))].copy()
-df_reg["m_color_venezia"] = np.where(df_reg["cod_com"] == 27042, True, False)
+df_reg = df.loc[(df["cod_com"].isin(list_regcom))].copy()
+df_reg["is_labeled"] = np.where(df_reg["cod_com"] == 27042, True, False)
 
 #########
 # WEB APP
@@ -135,28 +121,28 @@ app = dash.Dash(name=__name__,
 fig_vi = px.scatter(
         df_vi, title="Comuni in provincia di Vicenza",
         x="median", y="std",
-        size=pop_size(df_vi), color=df_vi["m_color_5com"],
+        size=pop_size(df_vi), color=df_vi["is_labeled"],
         color_discrete_sequence=[colors["primary"], colors["accent"]],
-        text=np.where(df_vi["m_color_5com"] == 1, df_vi["den_com"], ""),
-        custom_data=["den_com", "sigla", "pop", "median", "std"])
+        text=text_label(df_vi),
+        custom_data=tooltip_col)
 
 # Grafico per i comuni con più di 100000 abitanti
 fig_100k = px.scatter(
         df_100k, title="Comuni italiani con più di 100000 abitanti",
         x="median", y="std",
-        size=df_100k["m_size"], color=df_100k["m_color_vicenza"],
+        size=df_100k["m_size"], color=df_100k["is_labeled"],
         color_discrete_sequence=[colors["primary"], colors["accent"]],
-        text=np.where(df_100k["m_color_vicenza"] == 1, df_100k["den_com"], ""),
-        custom_data=["den_com", "sigla", "pop", "median", "std"])
+        text=text_label(df_100k),
+        custom_data=tooltip_col)
 
 # Grafico per i capoluoghi regionali
 fig_reg = px.scatter(
         df_reg, title="Capoluoghi regionali",
         x="median", y="std",
-        size=df_reg["m_size"], color=df_reg["m_color_venezia"],
+        size=df_reg["m_size"], color=df_reg["is_labeled"],
         color_discrete_sequence=[colors["primary"], colors["accent"]],
-        text=np.where(df_reg["m_color_venezia"] == 1, df_reg["den_com"], ""),
-        custom_data=["den_com", "sigla", "pop", "median", "std"])
+        text=text_label(df_reg),
+        custom_data=tooltip_col)
 
 # Aggiornare lo stile di grafici
 for f in [fig_vi, fig_100k, fig_reg]:
