@@ -25,6 +25,10 @@ body {
     color: var(--primary-text);
 }
 
+.fa {
+  color: var(--primary);
+}
+
 /* || Font Faces */
 
 /* Normal */
