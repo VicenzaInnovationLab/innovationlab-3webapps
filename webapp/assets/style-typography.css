@@ -29,6 +29,12 @@ body {
   color: var(--primary);
 }
 
+.right-align {text-align: right;}
+
+.central-align {text-align: center;}
+
+.warning {color: var(--accent); font-size: xx-large; text-align: center;}
+
 /* || Font Faces */
 
 /* Normal */

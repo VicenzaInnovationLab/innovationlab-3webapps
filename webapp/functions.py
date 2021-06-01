@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import dash_core_components as dcc
+import dash_html_components as html
+
+from content import bando
 
 colors = dict(primary="#303f9f", accent="#ffc107",
               primary_t="#212121", secondary_t="#757575")
@@ -67,3 +71,39 @@ def make_graph(dataframe: pd.DataFrame, graph_name: str) -> px.scatter:
                             namelength=0)
     )
     return f
+
+
+def app_content(app, fig_vi, fig_100k, fig_reg):
+    page = html.Div(className="container", children=[
+            dcc.Location(id="url", refresh=False),
+            html.H1([html.I(className=app["fa_icon"]), " ", app["title"]]),
+            dcc.Markdown(bando),
+            dcc.Markdown(children="![Logos di creatori](assets/logos.png)",
+                         className="img-logo"),
+            dcc.Markdown(className="right-align",
+                         children=">A cura del [Digital Innovation Hub Vicenza](https://digitalinnovationhubvicenza.it/)"),
+            html.Hr(),
+            dcc.Markdown(
+                    children=app["first_img"],
+                    className="img-right"),
+            dcc.Markdown(app["intro1"]),
+            dcc.Markdown(
+                children=app["second_img"],
+                className="img-left"),
+            dcc.Markdown(app["intro2"]),
+            html.Hr(className="clear-float"),
+            dcc.Markdown("## Come intrerpretare i grafici?"),
+            dcc.Markdown(app["interp"]),
+            html.Div(className="pagebreak"),
+            dcc.Graph(figure=fig_vi),
+            dcc.Graph(figure=fig_100k),
+            dcc.Graph(figure=fig_reg),
+            html.Div(className="pagebreak"),
+            dcc.Markdown("## Descrizione della metodica"),
+            dcc.Markdown(app["workflow"]),
+            dcc.Markdown("## Riferimenti"),
+            dcc.Markdown(app["refs"]),
+            dcc.Markdown("## Credits"),
+            dcc.Markdown(app["credits"])
+    ])
+    return page

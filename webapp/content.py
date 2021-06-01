@@ -10,6 +10,12 @@ meta_description="""
 La web app che stima, sulla base di immagini satellitari notturne, l'inquinamento luminoso nei comuni italiani.
 """,
 
+fa_icon="fa fa-moon-o",
+
+first_img="![Light pollution](assets/light-pollution.jpg)",
+
+second_img="![NASA - Immagine notturna dell'Italia](assets/italy-night-200px.jpg)",
+
 title="Inquinamento luminoso",
 
 filler="""
@@ -58,6 +64,8 @@ credits="""
 ),
 
 pvout={
+"fa_icon": "fa fa-solar-panel",
+
                 "meta_description": "Una web app che stima, sulla base di immagini satellitari notturne, l'inquinamento luminoso nei comuni italiani.",
                 "title": "Potenziale fotovoltaico",
                 "filler": """
@@ -76,6 +84,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas ac erat 
         },
 
 ghm={
+        "fa_icon":"fa fa-globe-europe",
                 "meta_description": "Una web app che stima, sulla base di immagini satellitari notturne, l'inquinamento luminoso nei comuni italiani.",
                 "title": "Pressione Antropica",
                 "filler": """

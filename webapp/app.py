@@ -10,19 +10,13 @@ import pandas as pd
 
 from content import *
 from istat_codes import *
-from functions import pop_size, make_graph, colors
+from functions import pop_size, make_graph, app_content
 
 ####################
 # PARAMETRI INIZIALI
 ####################
 app_list = ["viirs", "ghm", "pvout"]
 app_name = app_list[0]
-if app_name == "viirs":
-    fa_icon = "fa fa-moon-o"
-elif app_name == "pvout":
-    fa_icon = "fa fa-solar-panel"
-elif app_name == "ghm":
-    fa_icon = "fa fa-globe-europe"
 
 ####################
 # IMPLEMENTAZIONE
@@ -86,7 +80,9 @@ app = dash.Dash(name=__name__,
                         }
                 ],
                 external_stylesheets=ext_stylesheets,
-                external_scripts=ext_scripts
+                external_scripts=ext_scripts,
+                # avoid an exception, which warns us that we might be doing something wrong
+                suppress_callback_exceptions=True
                 )
 
 # Grafici
@@ -95,35 +91,65 @@ fig_100k = make_graph(df_100k, "Comuni italiani con più di 100000 abitanti")
 fig_reg = make_graph(df_reg, "Capoluoghi regionali")
 
 # App content
-app.layout = html.Div(className="container", children=[
-        html.H1([html.I(className=fa_icon), " ", bd['title']]),
-        dcc.Markdown(bando),
-        dcc.Markdown(children="![Logos di creatori](assets/logos.png)",
-                     className="img-logo"),
-        dcc.Markdown(">A cura del [Digital Innovation Hub Vicenza](https://digitalinnovationhubvicenza.it/)"),
-        html.Hr(),
-        dcc.Markdown(
-            children="![Light pollution](assets/light-pollution.jpg)",
-            className="img-right"),
-        dcc.Markdown(bd["intro1"]),
-        dcc.Markdown(children="![NASA - Immagine notturna dell'Italia](assets/italy-night-200px.jpg)",
-                     className="img-left"),
-        dcc.Markdown(bd["intro2"]),
-        html.Hr(className="clear-float"),
-        dcc.Markdown("## Come intrerpretare i grafici?"),
-        dcc.Markdown(bd["interp"]),
-        html.Div(className="pagebreak"),
-        dcc.Graph(figure=fig_vi),
-        dcc.Graph(figure=fig_100k),
-        dcc.Graph(figure=fig_reg),
-        html.Div(className="pagebreak"),
-        dcc.Markdown("## Descrizione della metodica"),
-        dcc.Markdown(bd["workflow"]),
-        dcc.Markdown("## Riferimenti"),
-        dcc.Markdown(bd["refs"]),
-        dcc.Markdown("## Credits"),
-        dcc.Markdown(bd["credits"])
+app_header = html.Div(
+        children=[
+                html.H1([html.I(className="fa fa-laptop"), " ",
+                         "Web App - InnovationLab Vicenza"]),
+                dcc.Markdown(bando),
+                dcc.Markdown(children="![Logos di creatori](assets/logos.png)",
+                             className="img-logo"),
+                dcc.Markdown(className="right-align",
+                             children=">A cura del [Digital Innovation Hub Vicenza]"
+                                      "(https://digitalinnovationhubvicenza.it/)"),
+                html.Hr()
+        ]
+)
+
+app.layout = html.Div([
+    dcc.Location(id="url", refresh=False),
+    html.Div(id="page-content")
 ])
+
+not_found_page = html.Div([
+        html.Div(className="container", children=[
+                html.H1([html.I(className="fa fa-laptop"),
+                         " ",
+                         "Web App - InnovationLab Vicenza"]),
+                html.Div(className="h2 warning", children=[
+                        "Errore: Pagina non trovata",
+                        html.Br(),
+                        "Sembra che non ci sia nulla a questo indirizzo."
+                ]),
+                dcc.Markdown(className="central-align",
+                             children="Torna alla [Pagina Iniziale](/).")
+        ])
+])
+
+index_page = html.Div(className="container", children=[
+        app_header,
+        html.Ol([
+                html.Li(dcc.Link("Inquinamento Luminoso",
+                                 href="/inquinamento-luminoso")),
+                html.Li(dcc.Link("Pressione antropica", href="/pressione-antropica")),
+                html.Li(dcc.Link("Potenziale fotovoltaico", href="/fotovoltaico"))
+        ])
+])
+
+
+l_pollution_page = app_content(bd, fig_vi, fig_100k, fig_reg)
+
+
+# Update the index
+@app.callback(dash.dependencies.Output("page-content", "children"),
+              [dash.dependencies.Input("url", "pathname")])
+def display_page(pathname):
+    if pathname == "/":
+        return index_page
+    elif pathname == "/inquinamento-luminoso":
+        return l_pollution_page
+    else:
+        return not_found_page
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
