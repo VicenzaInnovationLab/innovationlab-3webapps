@@ -50,7 +50,7 @@ refs="""
 """,
 
 credits="""
-- La web app è sviluppata con Python Dash è un quadro produttivo Python per la creazione di applicazioni analitiche Web.
+- La web app è sviluppata con Python Dash, un Framework per la creazione di applicazioni analitiche Web.
 - Icone realizzate da [Freepik](https://www.freepik.com) da [www.flaticon.com](https://www.flaticon.com/).
 - Foto dell'inquinamento luminoso: [Yan Yu Chen](https://www.flickr.com/photos/darkyanyu/5505836856/), licenza [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/)
 """
