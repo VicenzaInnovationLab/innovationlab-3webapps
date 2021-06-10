@@ -1,10 +1,12 @@
-import numpy as np
-import pandas as pd
 import plotly.express as px
 import dash_core_components as dcc
 import dash_html_components as html
+import numpy as np
+import pandas as pd
 
-from content import bando
+from istat_codes import *
+from content import *
+
 
 colors = dict(primary="#303f9f", accent="#ffc107",
               primary_t="#212121", secondary_t="#757575")
@@ -23,12 +25,41 @@ def pop_size(dataframe: pd.DataFrame) -> np.ndarray:
     return 2 + output
 
 
+def prepare_data(csv_path) -> dict:
+    df = pd.read_csv(csv_path, sep=",", na_filter=False, index_col=0)
+    df["median"] = df["median"].apply(pd.to_numeric)
+    df["std"] = df["std"].apply(pd.to_numeric)
+    df["pop"].replace(-1, np.NaN, inplace=True)
+    df["m_size"] = pop_size(df)  # marker size for visualization
+
+    # Separare il dataset in livello provinciale, regionale, ecc.
+
+    # Provincia VI
+    df_vi = df.loc[(df["cod_prov"] == istat_prov_vi)].copy()
+    df_vi["is_labeled"] = np.where(df_vi["cod_com"].isin(istat_5com), True,
+                                   False)
+
+    # Comuni italiani > 100k abitanti
+    df_100k = df.loc[(df["pop"] >= 100000)].copy()
+    df_100k["is_labeled"] = np.where(df_100k["cod_com"] == istat_vicenza, True,
+                                     False)
+
+    # Capoluoghi regionali
+    df_reg = df.loc[(df["cod_com"].isin(istat_capoluoghi))].copy()
+    df_reg["is_labeled"] = np.where(df_reg["cod_com"] == istat_venezia, True,
+                                    False)
+    result = dict(df_vi=df_vi, df_100k=df_100k, df_reg=df_reg)
+    return result
+
 def text_label(dataframe: pd.DataFrame, col: str = "is_labeled"):
     """Estimate a size for a graph point based on city population"""
     return np.where(dataframe[col] == 1, dataframe["den_com"], "")
 
 
-def make_graph(dataframe: pd.DataFrame, graph_name: str) -> px.scatter:
+def make_graph(dataframe: pd.DataFrame,
+               graph_name: str,
+               unit_name: str,
+               unit: str) -> px.scatter:
     """Add a scatter plot with fixed parameters"""
     f = px.scatter(
             dataframe, title=graph_name, x="median", y="std",
@@ -53,19 +84,18 @@ def make_graph(dataframe: pd.DataFrame, graph_name: str) -> px.scatter:
     )
 
     f.update_xaxes(title_font_family='"Roboto", sans-serif',
-                   title_text="Valore mediano (nW/cm²·sr)")
+                   title_text=f"Valore mediano {unit}")
     f.update_yaxes(title_font_family='"Roboto", sans-serif',
-                   title_text="Deviazione standard (nW/cm²·sr)")
+                   title_text=f"Deviazione standard {unit}")
 
     f.update_traces(
             hovertemplate="<br>".join([
                     "<b>%{customdata[0]}</b>",
                     "Provincia: %{customdata[1]}",
                     "Popolazione: %{customdata[2]}",
-                    "Brillanza (nW/(cm²·sr):",
+                    f"{unit_name} {unit}:",
                     "  mediana %{customdata[3]:.1f}",
-                    "  std %{customdata[4]:.1f}"
-            ]),
+                    "  std %{customdata[4]:.1f}"]),
             textposition="top center",
             hoverlabel=dict(font_family="Roboto Condensed Light",
                             namelength=0)
@@ -96,8 +126,11 @@ def app_content(app, fig_vi, fig_100k, fig_reg):
             dcc.Markdown(app["interp"]),
             html.Div(className="pagebreak"),
             dcc.Graph(figure=fig_vi),
+            dcc.Markdown(app["comment1"]),
             dcc.Graph(figure=fig_100k),
+            dcc.Markdown(app["comment2"]),
             dcc.Graph(figure=fig_reg),
+            dcc.Markdown(app["comment3"]),
             html.Div(className="pagebreak"),
             dcc.Markdown("## Descrizione della metodica"),
             dcc.Markdown(app["workflow"]),

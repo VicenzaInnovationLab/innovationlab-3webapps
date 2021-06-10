@@ -15,6 +15,10 @@
     box-sizing: border-box;
 }
 
+.modebar {
+display: none !important;
+}
+
 img {max-width: 900px; width: auto; height: auto;}
 .img-right {float: right; margin-left: 12px}
 .img-left {float: left; margin-right: 12px}
