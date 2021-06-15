@@ -32,9 +32,9 @@ I satelliti di osservazione della Terra consentono il monitoraggio del pianeta d
 
 interp="""
 - Ogni grafico mostra i singoli comuni come "bolle". Le loro dimensioni dipendono proportizialmente dalla popolazione. Ad esempio, una bolla di Vicenza è più grande di quella di Creazzo.
-- Sull'asse X, ci sono i valori mediani (MEDIANA) di quanta luce è emessa nel cielo sopra il territorio di un singolo comune, come misurato dal satellite.Sono espressi in Nanowatt Diviso per centimetro quadrato per steradiante. Più il valore, più inquinamento luminoso è, in generale. I valori più grandi di 10 corrispondono all'alto livello di inquinamento del cielo, dove le persone non sperimentano mai condizioni simile a una vera notte perché è mascherata da un crepuscolo artificiale.
-- Sull'asse Y, c'è una deviazione standard (STD), che mostra la dispersione della quantità di luce all'interno di un comune. Una bassa STD indica che i valori tendono ad essere vicini alla media (non MEDIANA), mentre una STD elevata indica che i valori sono distribuiti su un range più ampio.
-- Ad esempio, rispetto ad altri comuni della provincia di Vicenza, Rossano Veneto ha la MEDIANA elevata ma la bassa STD, il che significa che l'intero territorio del comune è illuminato in un modo uniformemente alto. Al contrario il comune di Vicenza ha sia l'elevata MEDIANA sia l'alta std, che corrispondono alla parte centrale brillante e alle aree periferiche più scure.
+- Sull'asse X, ci sono i valori medi di quanta luce è emessa nel cielo sopra il territorio di un singolo comune, come misurato dal satellite. Sono espressi in *nanowatt diviso per centimetro quadrato per steradiante*. Più il valore, più inquinamento luminoso è, in generale. I valori più grandi di 10 corrispondono all'alto livello di inquinamento del cielo, dove le persone non sperimentano mai condizioni simile a una vera notte perché è mascherata da un crepuscolo artificiale.
+- Sull'asse Y, c'è una deviazione standard (STD), che mostra la dispersione della quantità di luce all'interno di un comune. Una bassa STD indica che i valori tendono ad essere vicini alla media, mentre una STD elevata indica che i valori sono distribuiti su un range più ampio.
+- Ad esempio, rispetto ad altri comuni della provincia di Vicenza, Rossano Veneto ha la MEDIA elevata ma la bassa STD, il che significa che l'intero territorio del comune è illuminato in un modo uniformemente alto. Al contrario il comune di Vicenza ha sia l'elevata MEDIA sia l'alta STD, che corrispondono alla parte centrale brillante e alle aree periferiche più scure.
 - Su ogni grafico, i comuni di interesse sono provvisti dell'etichetta e evidenziati nel colore giallo. Per vedere i nomi e vari valori di comuni, basta porre il punto del mouse su una "bolla".
 """,
 
@@ -48,7 +48,7 @@ Per creare questi grafici abbiamo usato il seguente flusso di lavoro:
 1. Il territorio di ogni comune e definito dal dataset dei limiti amministrativi pubblicato dall'Istat (5).
 2. Le immagini satellitari notturne **VIIRS** (4) sono ottenute e elaborate nella piattaforma Big Data che si chiama [Google Earth Engine](https://earthengine.google.com/).
 3. Incrociando le immagini notturne con i limiti amministrativi, per ogni territorio comunale vengono calcolate cosidette *statistiche zonali*, in software libero [QGIS](https://www.qgis.org/). Cioè i caratteri come *media*, *mediana*, *deviazione standard*, *min* e *max* che descrivono i valori estratti dalle immagini e rilevanti solo per questo comune.
-4. Avendo le statistiche possiamo tracciare i grafici. Per la rappresentanza del fenomeno dell'inquinamento luminoso in un modo semplice e allo stesso modo efficace, come la descrizione dei comuni abbiamo scelto i caratteri *mediana* e *deviazione standard*.
+4. Avendo le statistiche possiamo tracciare i grafici. Per la rappresentanza del fenomeno dell'inquinamento luminoso in un modo semplice e allo stesso modo efficace, come la descrizione dei comuni abbiamo scelto i caratteri *media* e *deviazione standard*.
 """,
 
 refs="""
@@ -93,9 +93,9 @@ I grafici qui sotto sono basati sui dati World Bank del **potenziale di energia 
 
 interp="""
 - Ogni grafico mostra i singoli comuni come "bolle". Le loro dimensioni dipendono proportizialmente dalla popolazione. Ad esempio, una bolla di Vicenza è più grande di quella di Creazzo.
-- Sull'asse X, ci sono i valori mediani (MEDIANA) di quanta energia può essere prodotta in un anno dal territorio di un singolo comune. Sono espressi in Kilowatt diviso per ora annui. Più il valore, più energia c'è.
-- Sull'asse Y, c'è una deviazione standard (STD), che mostra la dispersione della quantità di energia producibile all'interno di un comune. Una bassa STD indica che i valori tendono ad essere vicini alla media (non mediana), mentre una STD elevata indica che i valori sono distribuiti su un range più ampio.
-- Ad esempio, rispetto ad altri comuni della provincia di Vicenza, Lastebasse ha la MEDIANA bassa ma l'alta STD, il che significa che l'intero territorio del comune è illuminato dal sole in un modo ineguale, grazie alla sua posizione in montagne. Al contrario il comune di Vicenza ha l'elevata MEDIANA e la bassa std, che mostra la sua adattabilità alla produzione dell'energia dal sole.
+- Sull'asse X, ci sono i valori medi di quanta energia può essere prodotta in un anno dal territorio di un singolo comune. Sono espressi in *Kilowatt diviso per ora annui*. Più il valore, più energia c'è.
+- Sull'asse Y, c'è una deviazione standard (STD), che mostra la dispersione della quantità di energia producibile all'interno di un comune. Una bassa STD indica che i valori tendono ad essere vicini alla media, mentre una STD elevata indica che i valori sono distribuiti su un range più ampio.
+- Ad esempio, rispetto ad altri comuni della provincia di Vicenza, Lastebasse ha la MEDIA bassa ma l'alta STD, il che significa che l'intero territorio del comune è illuminato dal sole in un modo ineguale, grazie alla sua posizione in montagne. Al contrario, il comune di Vicenza e i comuni contermini hanno le elevate MEDIE e le basse STD, che mostra le sue adattabilità alla produzione dell'energia dal sole.
 - Su ogni grafico, i comuni di interesse sono provvisti dell'etichetta e evidenziati nel colore giallo. Per vedere i nomi e vari valori di comuni, basta porre il punto del mouse su una "bolla".
 """,
 
@@ -108,7 +108,7 @@ Per creare questi grafici abbiamo usato il seguente flusso di lavoro:
 
 1. Il territorio di ogni comune e definito dal dataset dei limiti amministrativi pubblicato dall'Istat (2).
 2. Incrociamo i dati del potenziale del fotovoltaico (2) con i limiti amministrativi. Per ogni territorio comunale vengono calcolate cosidette *statistiche zonali*, in software libero [QGIS](https://www.qgis.org/). Cioè i caratteri come *media*, *mediana*, *deviazione standard*, *min* e *max* che descrivono i valori estratti dal dataset fotovoltaico sottostente e rilevante solo per questo comune.
-3. Avendo le statistiche possiamo tracciare i grafici. Per la rappresentanza del potenziale del fotovoltaico in un modo semplice e allo stesso modo efficace, come la descrizione dei comuni abbiamo scelto i caratteri *mediana* e *deviazione standard*.
+3. Avendo le statistiche possiamo tracciare i grafici. Per la rappresentanza del potenziale del fotovoltaico in un modo semplice e allo stesso modo efficace, come la descrizione dei comuni abbiamo scelto i caratteri *media* e *deviazione standard*.
 """,
 
 refs="""
@@ -128,7 +128,7 @@ ghm=dict(
 fa_icon="fa fa-globe-europe",
 
 meta_description="""
-La web app che stima, sulla base di immagini satellitari notturne, l'inquinamento luminoso nei comuni italiani.
+La web app che stima il livello della **pressione antropica* in comuni italiani.
 """,
 
 first_img="![Vista di VIcenza dall'alto](assets/vicenza-300px.jpg)",
@@ -152,9 +152,9 @@ I grafici qui sotto sono basati sui dati *Global Human Modification Index* (gHM)
 interp="""
 - Ogni grafico mostra i singoli comuni come "bolle". Le loro dimensioni dipendono proportizialmente dalla popolazione. Ad esempio, una bolla di Vicenza è più grande di quella di Creazzo.
 - I valori dell'indice gHM variano da `0,0` a `1,0`, dove `1` corrisponde al massimo livello del cambiamento
-- Sull'asse X, ci sono i valori mediani (MEDIANA) dell'indice gHM per un singolo comune.
-- Sull'asse Y, c'è una deviazione standard (STD), che mostra la dispersione dell'indice gHM all'interno di un comune. Una bassa STD indica che i valori tendono ad essere vicini alla media (non mediana), mentre una STD elevata indica che i valori sono distribuiti su un range più ampio.
-- Ad esempio, rispetto ad altri comuni della provincia di Vicenza, Asiago ha la MEDIANA bassa ma l'alta STD, il che significa che nonostante l'intero territorio del comune è generalmente poco modificato, esista una differenza tra la parte abitata è le periferie. Al contrario il comune di Vicenza ha l'elevata MEDIANA e la bassa std, che mostra l'intero territorio altamente modificato con poche variazioni.
+- Sull'asse X, ci sono le medie (MEDIA) dell'indice gHM per un singolo comune.
+- Sull'asse Y, c'è una deviazione standard (STD), che mostra la dispersione dell'indice gHM all'interno di un comune. Una bassa STD indica che i valori tendono ad essere vicini alla media, mentre una STD elevata indica che i valori sono distribuiti su un range più ampio.
+- Ad esempio, rispetto ad altri comuni della provincia di Vicenza, Asiago ha la MEDIA bassa ma l'alta STD, il che significa che nonostante l'intero territorio del comune è generalmente poco modificato, esista una differenza tra la parte abitata è le periferie. Al contrario il comune di Vicenza ha l'elevata MEDIA e la bassa STD, che mostra l'intero territorio altamente modificato con poche variazioni.
 - Su ogni grafico, i comuni di interesse sono provvisti dell'etichetta e evidenziati nel colore giallo. Per vedere i nomi e vari valori di comuni, basta porre il punto del mouse su una "bolla".
 """,
 
@@ -168,7 +168,7 @@ Per creare questi grafici abbiamo usato il seguente flusso di lavoro:
 1. Il territorio di ogni comune e definito dal dataset dei limiti amministrativi pubblicato dall'Istat (4).
 2. I dati  **gHMI** (3) sono ottenute e elaborate nella piattaforma Big Data che si chiama [Google Earth Engine](https://earthengine.google.com/).
 3. Incrociando i dati gHMI con i limiti amministrativi, per ogni territorio comunale vengono calcolate cosidette *statistiche zonali*, in software libero [QGIS](https://www.qgis.org/). Cioè i caratteri come *media*, *mediana*, *deviazione standard*, *min* e *max* che descrivono i valori estratti dalle immagini e rilevanti solo per questo comune.
-4. Avendo le statistiche possiamo tracciare i grafici. Per la rappresentanza della modifica dei terreni in un modo semplice e allo stesso modo efficace, come la descrizione dei comuni abbiamo scelto i caratteri *mediana* e *deviazione standard*.
+4. Avendo le statistiche possiamo tracciare i grafici. Per la rappresentanza della modifica dei terreni in un modo semplice e allo stesso modo efficace, come la descrizione dei comuni abbiamo scelto i caratteri *media* e *deviazione standard*.
 """,
 
 refs="""

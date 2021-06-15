@@ -10,7 +10,7 @@ from content import *
 
 colors = dict(primary="#303f9f", accent="#ffc107",
               primary_t="#212121", secondary_t="#757575")
-tooltip_col = ["den_com", "den_prov", "pop", "median", "std"]
+tooltip_col = ["den_com", "den_prov", "pop", "mean", "std"]
 
 
 def pop_size(dataframe: pd.DataFrame) -> np.ndarray:
@@ -27,7 +27,7 @@ def pop_size(dataframe: pd.DataFrame) -> np.ndarray:
 
 def prepare_data(csv_path) -> dict:
     df = pd.read_csv(csv_path, sep=",", na_filter=False, index_col=0)
-    df["median"] = df["median"].apply(pd.to_numeric)
+    df["mean"] = df["mean"].apply(pd.to_numeric)
     df["std"] = df["std"].apply(pd.to_numeric)
     df["pop"].replace(-1, np.NaN, inplace=True)
     df["m_size"] = pop_size(df)  # marker size for visualization
@@ -51,6 +51,7 @@ def prepare_data(csv_path) -> dict:
     result = dict(df_vi=df_vi, df_100k=df_100k, df_reg=df_reg)
     return result
 
+
 def text_label(dataframe: pd.DataFrame, col: str = "is_labeled"):
     """Estimate a size for a graph point based on city population"""
     return np.where(dataframe[col] == 1, dataframe["den_com"], "")
@@ -62,7 +63,7 @@ def make_graph(dataframe: pd.DataFrame,
                unit: str) -> px.scatter:
     """Add a scatter plot with fixed parameters"""
     f = px.scatter(
-            dataframe, title=graph_name, x="median", y="std",
+            dataframe, title=graph_name, x="mean", y="std",
             size=pop_size(dataframe), color=dataframe["is_labeled"],
             color_discrete_sequence=[colors["primary"], colors["accent"]],
             text=text_label(dataframe),
@@ -77,14 +78,14 @@ def make_graph(dataframe: pd.DataFrame,
             showlegend=False,
             legend_title_font_color=colors["secondary_t"],
             autosize=True,
-            dragmode=False,
+            dragmode="zoom",
             separators=",",
             hoverlabel=dict(bgcolor="white",
                             namelength=0)
     )
 
     f.update_xaxes(title_font_family='"Roboto", sans-serif',
-                   title_text=f"Valore mediano {unit}")
+                   title_text=f"Valore medio {unit}")
     f.update_yaxes(title_font_family='"Roboto", sans-serif',
                    title_text=f"Deviazione standard {unit}")
 
@@ -94,7 +95,7 @@ def make_graph(dataframe: pd.DataFrame,
                     "Provincia: %{customdata[1]}",
                     "Popolazione: %{customdata[2]}",
                     f"{unit_name} {unit}:",
-                    "  mediana %{customdata[3]:.1f}",
+                    "  media %{customdata[3]:.1f}",
                     "  std %{customdata[4]:.1f}"]),
             textposition="top center",
             hoverlabel=dict(font_family="Roboto Condensed Light",

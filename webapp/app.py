@@ -95,10 +95,11 @@ fig_100k_pvout = make_graph(df_100k_pvout, "Comuni italiani con più di 100000 a
 fig_reg_pvout = make_graph(df_reg_pvout, "Capoluoghi regionali", "Potenziale solare fotovoltaico annuo", "kWh/m²")
 
 # App content
+web_app_title = "Web App - InnovationLab Vicenza"
+
 app_header = html.Div(
         children=[
-                html.H1([html.I(className="fa fa-laptop"), " ",
-                         "Web App - InnovationLab Vicenza"]),
+                html.H1([html.I(className="fa fa-laptop"), " ", web_app_title]),
                 dcc.Markdown(bando),
                 dcc.Markdown(children="![Logos di creatori](assets/logos.png)",
                              className="img-logo"),
@@ -110,7 +111,7 @@ app_header = html.Div(
 )
 
 app.layout = html.Div([
-    dcc.Location(id="url", refresh=False),
+    dcc.Location(id="url", refresh=True),
     html.Div(id="page-content")
 ])
 
@@ -165,4 +166,4 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)

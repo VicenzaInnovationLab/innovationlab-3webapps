@@ -24,7 +24,7 @@ for r in rast:
     print(f"raster {r['name']}")
     vect_ = get_zonal_stats(com,
                             r["obj"],
-                            ["std", "median"],
+                            ["std", "mean", "median"],
                             np.nan,
                             r["affine"])
     vect = vect_.loc[:, vect_.columns != "geometry"]
