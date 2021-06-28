@@ -109,7 +109,7 @@ def app_content(app, fig_vi, fig_100k, fig_reg):
             dcc.Location(id="url", refresh=False),
             html.H1([html.I(className=app["fa_icon"]), " ", app["title"]]),
             dcc.Markdown(bando),
-            dcc.Markdown(children="![Logos di creatori](assets/logos.png)",
+            dcc.Markdown(children="![Logos di creatori](static/logos.png)",
                          className="img-logo"),
             dcc.Markdown(className="right-align",
                          children=">A cura del [Digital Innovation Hub Vicenza](https://digitalinnovationhubvicenza.it/)"),

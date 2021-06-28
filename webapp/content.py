@@ -12,9 +12,9 @@ La web app che stima, sulla base di immagini satellitari notturne, l'inquinament
 
 fa_icon="fa fa-moon-o",
 
-first_img="![Light pollution](assets/light-pollution.jpg)",
+first_img="![Light pollution](static/light-pollution.jpg)",
 
-second_img="![NASA - Immagine notturna dell'Italia](assets/italy-night-200px.jpg)",
+second_img="![NASA - Immagine notturna dell'Italia](static/italy-night-200px.jpg)",
 
 title="Inquinamento luminoso",
 
@@ -73,7 +73,7 @@ meta_description="""
 La web app che compare i comuni italiani per il suo potenziale fotovoltaico.
 """,
 
-first_img="![Panelli fotovoltaici su un tetto](assets/vicenza-fotovoltaici-capannone-300px.png)",
+first_img="![Panelli fotovoltaici su un tetto](static/vicenza-fotovoltaici-capannone-300px.png)",
 
 second_img="",
 
@@ -131,9 +131,9 @@ meta_description="""
 La web app che stima il livello della **pressione antropica* in comuni italiani.
 """,
 
-first_img="![Vista di VIcenza dall'alto](assets/vicenza-300px.jpg)",
+first_img="![Vista di VIcenza dall'alto](static/vicenza-300px.jpg)",
 
-second_img="![Tre Cime di Lavaredo](assets/mountains-300px.jpg)",
+second_img="![Tre Cime di Lavaredo](static/mountains-300px.jpg)",
 
 title="Pressione antropica",
 

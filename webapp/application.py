@@ -57,6 +57,8 @@ ext_stylesheets = [
 app = dash.Dash(name=__name__,
                 title="InnovationLab Vicenza",
                 update_title="Caricamento...",
+                assets_folder="static",
+                assets_url_path="static",
                 meta_tags=[
                         # A description for search engines
                         {
@@ -101,7 +103,7 @@ app_header = html.Div(
         children=[
                 html.H1([html.I(className="fa fa-laptop"), " ", web_app_title]),
                 dcc.Markdown(bando),
-                dcc.Markdown(children="![Logos di creatori](assets/logos.png)",
+                dcc.Markdown(children="![Logos di creatori](static/logos.png)",
                              className="img-logo"),
                 dcc.Markdown(className="right-align",
                              children=">A cura del [Digital Innovation Hub Vicenza]"
