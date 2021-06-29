@@ -21,9 +21,9 @@ bd_viirs = body[app_list[0]]
 bd_ghm = body[app_list[1]]
 bd_pvout = body[app_list[2]]
 
-csv_path_viirs = Path.cwd() / ".." / "data" / "output" / f"stats_{app_list[0]}.csv"
-csv_path_ghm = Path.cwd() / ".." / "data" / "output" / f"stats_{app_list[1]}.csv"
-csv_path_pvout = Path.cwd() / ".." / "data" / "output" / f"stats_{app_list[2]}.csv"
+csv_path_viirs = Path.cwd() / "data" / f"stats_{app_list[0]}.csv"
+csv_path_ghm = Path.cwd() / "data" / f"stats_{app_list[1]}.csv"
+csv_path_pvout = Path.cwd() / "data" / f"stats_{app_list[2]}.csv"
 
 df_viirs = prepare_data(csv_path_viirs)
 df_vi_viirs = df_viirs["df_vi"]

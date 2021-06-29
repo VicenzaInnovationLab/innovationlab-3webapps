@@ -8,13 +8,13 @@ import rasterio
 from main import get_zonal_stats
 
 # confini comunali Istat
-com_file = Path.cwd() / ".." / "data" / "input" / "istat_comuni2021.zip"
+com_file = Path.cwd() / ".." / "data" / "istat_comuni2021.zip"
 com = gpd.read_file(com_file)
 com.columns = map(str.lower, com.columns)
 com = com[["comune", "pro_com", "cod_prov", "cod_reg", "geometry"]]
 
 # statistiche zonali per riempire la popolazione
-worldpop_file = Path.cwd() / ".." / "data" / "input" / "worldpop.tif"
+worldpop_file = Path.cwd() / ".." / "data" / "worldpop.tif"
 worldpop_ = rasterio.open(worldpop_file)
 affine = worldpop_.transform
 worldpop = worldpop_.read(1)
@@ -26,7 +26,7 @@ com.rename(columns={"sum": "pop"}, inplace=True)
 com["pop"] = com["pop"].fillna(0).astype(int)
 
 # censimento della popolazione Istat
-pop_file = Path.cwd() / ".." / "data" / "input" / "istat_pop2019.csv"
+pop_file = Path.cwd() / ".." / "data" / "istat_pop2019.csv"
 pop = pd.read_csv(pop_file, sep="\t")
 pop.columns = map(str.lower, pop.columns)
 pop = pop[["itter107", "territorio", "value"]]
@@ -49,7 +49,7 @@ com_pop["pop"] = np.where(com_pop["pop_cens"].isnull,
                           com_pop["pop_com"])
 
 # aggiungere nomi di provincie e regioni
-prov_file = Path.cwd() / ".." / "data" / "input" / "istat_codici_prov.csv"
+prov_file = Path.cwd() / ".." / "data" / "istat_codici_prov.csv"
 prov = pd.read_csv(prov_file, sep=";", na_filter=False)
 prov.columns = map(str.lower, prov.columns)
 prov = prov[["cod_reg", "den_reg", "cod_prov_storico",
@@ -74,7 +74,7 @@ com_geog["pop"] = com_geog["pop"].astype(int)
 com_f_nogeog = com_geog.loc[:, com_geog.columns != "geometry"]
 
 # salvare il file
-com_geog_f = Path.cwd() / ".." / "data" / "output" / "istat_com_pop"
+com_geog_f = Path.cwd() / ".." / "webapp" / "data" / "istat_com_pop"
 com_geog.to_file(com_geog_f, driver="ESRI Shapefile")
 
 com_f_nogeog.to_csv(f"{com_geog_f}.csv")
