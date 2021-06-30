@@ -137,11 +137,11 @@ def app_content(app, fig_vi, fig_100k, fig_reg):
             dcc.Graph(figure=fig_reg),
             dcc.Markdown(app["comment3"]),
             html.Div(className="pagebreak"),
-            dcc.Markdown("## Descrizione della metodica"),
+            dcc.Markdown("## Metodologia"),
             dcc.Markdown(app["workflow"]),
             dcc.Markdown("## Riferimenti"),
             dcc.Markdown(app["refs"]),
-            dcc.Markdown("## Credits"),
+            dcc.Markdown("## Crediti"),
             dcc.Markdown(app["credits"])
     ])
     return page
