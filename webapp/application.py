@@ -3,6 +3,7 @@ from pathlib import Path
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output
 
 from content import *
 from functions import prepare_data, make_graph, app_content
@@ -56,7 +57,7 @@ ext_stylesheets = [
 
 app = dash.Dash(name=__name__,
                 title="InnovationLab Vicenza",
-                update_title="Caricamento...",
+                update_title=None,
                 assets_folder="static",
                 assets_url_path="static",
                 meta_tags=[
@@ -151,22 +152,28 @@ viirs_page = app_content(bd_viirs, fig_vi_viirs, fig_100k_viirs, fig_reg_viirs)
 ghm_page = app_content(bd_ghm, fig_vi_ghm, fig_100k_ghm, fig_reg_ghm)
 pvout_page = app_content(bd_pvout, fig_vi_pvout, fig_100k_pvout, fig_reg_pvout)
 
+
 # Update the index
 @app.callback(dash.dependencies.Output("page-content", "children"),
               [dash.dependencies.Input("url", "pathname")])
 def display_page(pathname):
     if pathname == "/":
+        app.title = "InnovationLab Vicenza"
         return index_page
     elif pathname == "/inquinamento-luminoso":
+        app.title = "Inquinamento luminoso"
         return viirs_page
     elif pathname == "/pressione-antropica":
+        app.title = "Pressione antropica"
         return ghm_page
     elif pathname == "/fotovoltaico":
+        app.title = "Potenziale del fotovoltaico"
         return pvout_page
     else:
+        app.title = "Not Found"
         return not_found_page
 
 
 application = app.server
 if __name__ == '__main__':
-    application.run(port=80, debug=False)
+    application.run(port=80, debug=True, threaded=True)
