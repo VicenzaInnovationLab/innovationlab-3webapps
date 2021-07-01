@@ -4,8 +4,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
-from content import *
-from functions import prepare_data, make_graph, app_content
+
+from source.content import *
+from source.functions import prepare_data, make_graph, app_content
 
 ####################
 # PARAMETRI INIZIALI
@@ -55,8 +56,8 @@ ext_stylesheets = [
 ]
 
 app = dash.Dash(name=__name__,
-                title="InnovationLab Vicenza",
-                update_title=None,
+                title="InnovationLab Vicenza | Web App per il Vicentino sulla base di Open Data Geospaziali",
+                update_title="Caricamento...",
                 assets_folder="static",
                 assets_url_path="static",
                 meta_tags=[
@@ -102,18 +103,20 @@ web_app_title = "Web App - InnovationLab Vicenza"
 app_header = html.Div(
         children=[
                 html.H1([html.I(className="fa fa-laptop"), " ", web_app_title]),
+                html.Div(className="", children=[
                 dcc.Markdown(bando),
-                dcc.Markdown(children="![Logos di creatori](static/logos.png)",
+                dcc.Markdown(children="![Logo InnovationLab Vicenza](static/img/logos.png)",
                              className="img-logo"),
                 dcc.Markdown(className="right-align",
                              children=">A cura del [Digital Innovation Hub Vicenza]"
-                                      "(https://digitalinnovationhubvicenza.it/)"),
+                                      "(https://digitalinnovationhubvicenza.it/)")
+                        ]),
                 html.Hr()
         ]
 )
 
 app.layout = html.Div([
-    dcc.Location(id="url", refresh=False),
+    dcc.Location(id="url", refresh=True),
     html.Div(id="page-content", children=[])
 ])
 
@@ -134,17 +137,35 @@ not_found_page = html.Div([
 
 index_page = html.Div(className="container", children=[
         app_header,
-        html.Ol([
-                html.Li(dcc.Link("Inquinamento luminoso",
-                                 href="/inquinamento-luminoso",
-                                 target="_blank")),
-                html.Li(dcc.Link("Pressione antropica",
-                                 href="/pressione-antropica",
-                                 target="_blank")),
-                html.Li(dcc.Link("Potenziale fotovoltaico",
-                                 href="/fotovoltaico",
-                                 target="_blank"))
-        ])
+
+        html.Div(className="gallery",
+                 children=[
+                        dcc.Link(html.Img(src="static/img/italy-night-200px.jpg",
+                                          alt="Inquinamento luminoso"),
+                                 href="/inquinamento-luminoso"),
+                        html.Div("Inquinamento luminoso", className="desc")
+                ]
+        ),
+
+        html.Div(className="gallery",
+                 children=[
+                         dcc.Link(html.Img(src="static/img/fotovoltaici-tetto-200px.jpg",
+                                           alt="Potenziale fotovoltaico"),
+                                  href="/fotovoltaico"),
+                         html.Div("Potenziale fotovoltaico", className="desc")
+                 ]
+                 ),
+
+        html.Div(className="gallery",
+                 children=[
+                         dcc.Link(
+                             html.Img(src="static/img/vicenza-300px.jpg",
+                                      alt="Pressione antropica"),
+                             href="/pressione-antropica"),
+                         html.Div("Pressione antropica", className="desc")
+                 ]
+                 ),
+        html.Div(className="homepage fade-in")
 ])
 
 viirs_page = app_content(bd_viirs, fig_vi_viirs, fig_100k_viirs, fig_reg_viirs)
@@ -152,27 +173,22 @@ ghm_page = app_content(bd_ghm, fig_vi_ghm, fig_100k_ghm, fig_reg_ghm)
 pvout_page = app_content(bd_pvout, fig_vi_pvout, fig_100k_pvout, fig_reg_pvout)
 
 
-# Update the index
+# Fill the page content
 @app.callback(dash.dependencies.Output("page-content", "children"),
               [dash.dependencies.Input("url", "pathname")])
 def display_page(pathname):
     if pathname == "/":
-        app.title = "InnovationLab Vicenza"
         return index_page
     elif pathname == "/inquinamento-luminoso":
-        app.title = "Inquinamento luminoso"
         return viirs_page
     elif pathname == "/pressione-antropica":
-        app.title = "Pressione antropica"
         return ghm_page
     elif pathname == "/fotovoltaico":
-        app.title = "Potenziale del fotovoltaico"
         return pvout_page
     else:
-        app.title = "Not Found"
         return not_found_page
 
 
 application = app.server
 if __name__ == '__main__':
-    application.run(port=80, debug=True, threaded=True)
+    application.run(port=80, debug=False)

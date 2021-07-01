@@ -15,14 +15,35 @@
     box-sizing: border-box;
 }
 
-
 .modebar-btn--logo {display: none !important;}
 
-img {max-width: 900px; width: auto; height: auto;}
+img {max-width: 900px; width: 100%; height: auto;}
 .img-right {float: right; margin-left: 12px}
 .img-left {float: left; margin-right: 12px}
 
 .clear-float {clear: both;}
 .pagebreak {page-break-after: always;}
+
+.homepage{
+    background: radial-gradient(
+                    circle,
+                    rgba(255,255,255,0),
+                    rgba(255,255,255,1)),
+                url(img/esa-alps.jpg);
+    min-height: 600px;
+}
+
+
+.tab-parent {
+    border: 2px solid;
+    border-image: linear-gradient(to right, #d6d6d6, var(--accent));
+    border-image-slice: 2;
+}
+
+hr {
+    border: 1px solid;
+    border-image: linear-gradient(to right, #d6d6d6, var(--accent));
+    border-image-slice: 1;
+}
 
 /* || Header and Main Navigation */

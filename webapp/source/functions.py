@@ -4,8 +4,8 @@ import dash_html_components as html
 import numpy as np
 import pandas as pd
 
-from istat_codes import *
-from content import *
+from source.istat_codes import *
+from source.content import *
 
 
 colors = dict(primary="#303f9f", accent="#ffc107",
@@ -110,9 +110,12 @@ def make_graph(dataframe: pd.DataFrame,
 
 def app_content(app, fig_vi, fig_100k, fig_reg):
     page = html.Div(className="container", children=[
+            html.Div(className="central-align", children=[
+                    dcc.Link("ritorna alla Homepage", href="/", )
+            ]),
             html.H1([html.I(className=app["fa_icon"]), " ", app["title"]]),
             dcc.Markdown(bando),
-            dcc.Markdown(children="![Logos di creatori](static/logos.png)",
+            dcc.Markdown(children="![Logos di creatori](static/img/logos.png)",
                          className="img-logo"),
             dcc.Markdown(className="right-align",
                          children=">A cura del [Digital Innovation Hub Vicenza](https://digitalinnovationhubvicenza.it/)"),

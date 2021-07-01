@@ -1,15 +1,16 @@
 # Infografiche per InnovationLab Vicenza
 
+AVVERTENZA: **QUESTO FILE README È ANCORA NEL CORSO DI SVILUPPO!**
+
 Un paragrafo della descrizione del progetto va qui.
 
 > Il progetto è parte del Operativo Regionale del Fondo Europeo di Sviluppo Regionale (POR FESR 2014 - 2020) del Veneto, nell'ambito del bando dell'azione 231 volto alla "costituzione di Innovation Lab diretti al consolidamento/sviluppo del network Centri P3@-Palestre Digitali e alla diffusione della cultura degli Open Data."
 
-![logo of participants](docs/logos.png)
+![logo of participants](webapp/static/img/logos.png)
 
 ## Sommario
 
 - [Guida introduttiva](#guida-introduttiva)
-- [Avviare i test](#avviare-i-test)
 - [Uso](#uso)
 - [Roadmap](#roadmap)
 - [Versioning](#versioning)
