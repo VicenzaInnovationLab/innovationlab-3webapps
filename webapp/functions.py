@@ -110,7 +110,6 @@ def make_graph(dataframe: pd.DataFrame,
 
 def app_content(app, fig_vi, fig_100k, fig_reg):
     page = html.Div(className="container", children=[
-            dcc.Location(id="url", refresh=False),
             html.H1([html.I(className=app["fa_icon"]), " ", app["title"]]),
             dcc.Markdown(bando),
             dcc.Markdown(children="![Logos di creatori](static/logos.png)",

@@ -114,8 +114,8 @@ app_header = html.Div(
 )
 
 app.layout = html.Div([
-    dcc.Location(id="url", refresh=True),
-    html.Div(id="page-content")
+    dcc.Location(id="url", refresh=False),
+    html.Div(id="page-content", children=[])
 ])
 
 not_found_page = html.Div([
