@@ -3,7 +3,6 @@ from pathlib import Path
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
 
 from content import *
 from functions import prepare_data, make_graph, app_content

@@ -41,7 +41,7 @@ def prepare_data(csv_path) -> dict:
 
     # Comuni italiani > 100k abitanti
     df_100k = df.loc[(df["pop"] >= 100000)].copy()
-    df_100k["is_labeled"] = np.where(df_100k["cod_com"] == istat_vicenza, True,
+    df_100k["is_labeled"] = np.where(df_100k["cod_reg"] == istat_reg_ven, True,
                                      False)
 
     # Capoluoghi regionali
@@ -63,7 +63,7 @@ def make_graph(dataframe: pd.DataFrame,
                unit: str) -> px.scatter:
     """Add a scatter plot with fixed parameters"""
     f = px.scatter(
-            dataframe, title=graph_name, x="mean", y="std",
+            dataframe, title="", x="mean", y="std",
             size=pop_size(dataframe), color=dataframe["is_labeled"],
             color_discrete_sequence=[colors["primary"], colors["accent"]],
             text=text_label(dataframe),
@@ -75,7 +75,7 @@ def make_graph(dataframe: pd.DataFrame,
             font_color=colors["primary_t"],
             title_font_family='"Roboto Medium", sans-serif',
             title_font_color=colors["primary"],
-            showlegend=True,
+            showlegend=False,
             # legend_y=-0.3,
             # legend_x=0.4,
             legend_title="Colori",
@@ -129,12 +129,32 @@ def app_content(app, fig_vi, fig_100k, fig_reg):
             dcc.Markdown("## Come intrerpretare i grafici?"),
             dcc.Markdown(app["interp"]),
             html.Div(className="pagebreak"),
-            dcc.Graph(figure=fig_vi),
-            dcc.Markdown(app["comment1"]),
-            dcc.Graph(figure=fig_100k),
-            dcc.Markdown(app["comment2"]),
-            dcc.Graph(figure=fig_reg),
-            dcc.Markdown(app["comment3"]),
+            dcc.Tabs([
+                    dcc.Tab(className="custom-tab",
+                            selected_className="custom-tab--selected",
+                            label=("Comuni in provincia di Vicenza"),
+                            children=[
+                                    dcc.Graph(figure=fig_vi),
+                                    dcc.Markdown(app["comment1"])
+                            ]
+                    ),
+                    dcc.Tab(className="custom-tab",
+                            selected_className="custom-tab--selected",
+                            label="Comuni italiani con più di 100.000 abitanti",
+                            children=[
+                                    dcc.Graph(figure=fig_100k),
+                                    dcc.Markdown(app["comment2"])
+                            ]
+                    ),
+                    dcc.Tab(className="custom-tab",
+                            selected_className="custom-tab--selected",
+                            label="Capoluoghi regionali",
+                            children=[
+                                    dcc.Graph(figure=fig_reg),
+                                    dcc.Markdown(app["comment3"])
+                            ]
+                    )
+            ]),
             html.Div(className="pagebreak"),
             dcc.Markdown("## Metodologia"),
             dcc.Markdown(app["workflow"]),

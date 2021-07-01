@@ -1,6 +1,14 @@
 istat_venezia = 27042
 istat_vicenza = 24116
 istat_prov_vi = 24
+istat_reg_ven = 5
+
+istat_ven100k = [
+        24116,  # Vicenza
+        23091,  # Verona
+        28060,  # Padova
+        27042,  # Venezia
+]
 
 istat_5com = [
         24036,  # Creazzo
