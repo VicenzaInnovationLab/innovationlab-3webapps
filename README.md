@@ -17,7 +17,6 @@ Questo repositorio contiene il codice Python necessario per l'elaborazione dei d
 - [Uso](#uso)
 - [Contatti](#contatti)
 - [Licenza](#licenza)
-- [Riconoscimenti](#riconoscimenti)
 
 ## Metodologia
 
@@ -82,5 +81,4 @@ Si piò aggiornare i dataset vettoriali, usati dalle Web App, con i script dalla
 
 ## Licenza
 
-### Web app
 Questo progetto è concesso in licenza sotto la GNU GPL versione 3: vedi il file [LICENSE](LICENSE) per dettagli. Per quanto riguarda le licenze dei dati, vedi la sezione [Struttura del ripositorio](#struttura-del-ripositorio).
