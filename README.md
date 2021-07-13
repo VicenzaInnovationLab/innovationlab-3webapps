@@ -1,8 +1,10 @@
-# Infografiche per InnovationLab Vicenza
+# InnovationLab Vicenza: Earth Observation Web App
 
-AVVERTENZA: **QUESTO FILE README È ANCORA NEL CORSO DI SVILUPPO!**
+Questo repositorio contiene il codice Python necessario per l'elaborazione dei dati e per generare tre Web App. È dedicato all'utilizzo dei dati Earth Observation aperti nel territorio vicentino e racchiude tre time:
 
-Un paragrafo della descrizione del progetto va qui.
+1. [Inquinamento luminoso](http://dash-multipage.eu-south-1.elasticbeanstalk.com/inquinamento-luminoso)
+2. [Potenziale del fotovoltaico](http://dash-multipage.eu-south-1.elasticbeanstalk.com/fotovoltaico)
+3. [Pressione antropica](http://dash-multipage.eu-south-1.elasticbeanstalk.com/pressione-antropica)
 
 > Il progetto è parte del Operativo Regionale del Fondo Europeo di Sviluppo Regionale (POR FESR 2014 - 2020) del Veneto, nell'ambito del bando dell'azione 231 volto alla "costituzione di Innovation Lab diretti al consolidamento/sviluppo del network Centri P3@-Palestre Digitali e alla diffusione della cultura degli Open Data."
 
@@ -10,20 +12,23 @@ Un paragrafo della descrizione del progetto va qui.
 
 ## Sommario
 
-- [Guida introduttiva](#guida-introduttiva)
+- [Metodologia](#metodologia)
+- [Struttura del ripositorio](#struttura-del-ripositorio)
 - [Uso](#uso)
-- [Roadmap](#roadmap)
-- [Versioning](#versioning)
 - [Contatti](#contatti)
 - [Licenza](#licenza)
 - [Riconoscimenti](#riconoscimenti)
 
-## Guida introduttiva
+## Metodologia
 
-Queste istruzioni ti porterà una copia del progetto su e funzionante La tua
-macchina locale per scopi di sviluppo e test. Vedi Distribuzione Per le note su
-come distribuire il progetto su un sistema live.
+Le web app sono sviluppate con Python Dash, un Framework per la creazione di applicazioni analitiche Web. Per creare queste app con i grafici interattivi abbiamo usato la seguente metodologia:
 
+1. Il territorio di ogni comune è definito dal dataset dei limiti amministrativi pubblicato dall'Istat.
+2. I dati satellitari vengono ottenute ed elaborate nella piattaforma Big Data che si chiama Google Earth Engine.
+3. Incrociando i dati satellitari con i limiti amministrativi, per ogni territorio comunale vengono calcolate le statistiche zonali tramite il software libero QGIS: i caratteri come media, mediana, deviazione standard, min e max che descrivono i valori estratti dalle immagini e rilevanti solo per questo comune.
+4. Ottenute le statistiche, possiamo tracciare i grafici. Per semplificare la rappresentanza dei fenomeni abbiamo scelto i caratteri media e deviazione standard.
+
+## Struttura del ripositorio
 
 * `/data`
   * `/input`
@@ -37,16 +42,13 @@ come distribuire il progetto su un sistema live.
 * `processing`
   * `vector_prep.py` - crea un nuovo dataset georeferenziato `data/output/istat_com_pop.json` che contiene le colonne necessarie come i nomi di comuni, popolazione, ecc.
   * `raster_stats.py` - calcola le statistiche zonali su raster tematici d'input. 
+* `webapp` - contiene i file pronti per essere installati su un server web. Il file principale è `webapp/application.py`.
 
+## Uso
 
-### Prerequisiti
+Abbiamo usato Windows per questo sviluppo, quindi l'istruzione è valida per questo sistema. Però funziona anche su Linux e Mac.
 
-Quali cose è necessario installare il software e come installarli.
-
-    Dare esempi
-
-### Installazione
-
+Il repositorio consiste da due distinte parti. La prima è la web app (HTML, CSS e JS). La seconda è lo script in Python per aggiornarla. Abbiamo testato questo con Python 3.8, ma funzionano anche le versioni non inferiori a 3.6.
 
 1. Prima di tutto installa **Microsoft Visual C++** 14.0 (o maggiore). Scaricalo con lo strumento ["Microsoft C++ Build Tools"](https://visualstudio.microsoft.com/visual-cpp-build-tools/). 
    
@@ -64,27 +66,11 @@ pip install processing\dependencies\rasterio-1.2.1-cp39-cp39-win_amd64.whl
 pip install requests rasterstats
 ```
 
-L'ultima libreria viene installata dall'internet, dunque non specifichiamo nessun file.
+L'ultima libreria viene installata dall'internet, dunque non si specifica nessun file.
 
-## Uso
+### Aggiustamenti manuali
 
-Utilizzare questo spazio per mostrare esempi utili di come può essere utilizzato
-un progetto. Ulteriori screenshots, esempi di codice e demo funzionano bene in
-questo spazio. Puoi anche collegarti a più risorse.
-
-Per ulteriori esempi, fare riferimento alla documentazione.
-
-## Roadmap
-
-Vedi [issues](https://github.com/dihvicenza/infografiche-vi/issues) aperti per
-un elenco di miglioramenti proposti (e problemi noti).
-
-## Versioning
-
-Usiamo [SemVer](http://semver.org/) per il versioning. Per le versioni
-disponibili, vedere
-i [tag su questo repository](https://github.com/dihvicenza/infografiche-vi/tags)
-.
+Si piò aggiornare i dataset vettoriali, usati dalle Web App, con i script dalla cartella `processing`. Ad es., se cambiano coordinate dei confini amministrativi di comuni.
 
 ## Contatti
 
@@ -96,11 +82,5 @@ i [tag su questo repository](https://github.com/dihvicenza/infografiche-vi/tags)
 
 ## Licenza
 
-Questo progetto è concesso in licenza sotto la GNU GPL versione 3: vedi il
-file [LICENSE](LICENSE) per dettagli.
-
-## Riconoscimenti
-
-- Suggerimento del cappello a chiunque sia stato utilizzato il codice
-- Ispirazione
-- eccetera
+### Web app
+Questo progetto è concesso in licenza sotto la GNU GPL versione 3: vedi il file [LICENSE](LICENSE) per dettagli. Per quanto riguarda le licenze dei dati, vedi la sezione [Struttura del ripositorio](#struttura-del-ripositorio).
