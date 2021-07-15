@@ -6,7 +6,7 @@ Questo repositorio contiene il codice Python necessario per l'elaborazione dei d
 2. [Potenziale del fotovoltaico](http://dash-multipage.eu-south-1.elasticbeanstalk.com/fotovoltaico)
 3. [Pressione antropica](http://dash-multipage.eu-south-1.elasticbeanstalk.com/pressione-antropica)
 
-> Il progetto è parte del Operativo Regionale del Fondo Europeo di Sviluppo Regionale (POR FESR 2014 - 2020) del Veneto, nell'ambito del bando dell'azione 231 volto alla "costituzione di Innovation Lab diretti al consolidamento/sviluppo del network Centri P3@-Palestre Digitali e alla diffusione della cultura degli Open Data."
+> Il progetto è parte del Programma Operativo Regionale del Fondo Europeo di Sviluppo Regionale (POR FESR 2014 - 2020) del Veneto, nell'ambito del bando dell'azione 231 volto alla "costituzione di Innovation Lab diretti al consolidamento/sviluppo del network Centri P3@-Palestre Digitali e alla diffusione della cultura degli Open Data."
 
 ![logo of participants](webapp/static/img/logos.png)
 
