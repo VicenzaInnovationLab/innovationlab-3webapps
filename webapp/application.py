@@ -103,6 +103,11 @@ web_app_title = "Web App - InnovationLab Vicenza"
 app_header = html.Div(
         children=[
                 html.H1([html.I(className="fa fa-laptop"), " ", web_app_title]),
+                html.Div(children=[
+                        html.Img(alt="Logo dell'InnovationLab Vicenza",
+                                 src="static/img/logo-innovationlab.png",
+                                 className="img-center")],
+                        style={"width": "100%", "text-align": "center"}),
                 html.Div(className="", children=[
                 dcc.Markdown(bando),
                 dcc.Markdown(children="![Logo InnovationLab Vicenza](static/img/logos.png)",

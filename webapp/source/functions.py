@@ -114,6 +114,11 @@ def app_content(app, fig_vi, fig_100k, fig_reg):
                     dcc.Link("ritorna alla Homepage", href="/", )
             ]),
             html.H1([html.I(className=app["fa_icon"]), " ", app["title"]]),
+            html.Div(children=[
+                    html.Img(alt="Logo dell'InnovationLab Vicenza",
+                             src="static/img/logo-innovationlab.png",
+                             className="img-center")],
+                    style={"width": "100%", "text-align": "center"}),
             dcc.Markdown(bando),
             dcc.Markdown(children="![Logos di creatori](static/img/logos.png)",
                          className="img-logo"),

@@ -1,5 +1,7 @@
 # InnovationLab Vicenza: Earth Observation Web App
 
+![logo InnovationLab Vicenza](webapp/static/img/logo-innovationlab.png)
+
 Questo repositorio contiene il codice Python necessario per l'elaborazione dei dati e per generare tre Web App. È dedicato all'utilizzo dei dati Earth Observation aperti nel territorio vicentino e racchiude tre time:
 
 1. [Inquinamento luminoso](http://dash-multipage.eu-south-1.elasticbeanstalk.com/inquinamento-luminoso)
