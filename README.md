@@ -1,8 +1,8 @@
-# InnovationLab Vicenza: Earth Observation Web App
+# VicenzaInnovationLab: Earth Observation Web App
 
 ![logo InnovationLab Vicenza](webapp/static/img/logo-innovationlab.png)
 
-Questo repositorio contiene il codice Python necessario per l'elaborazione dei dati e per generare tre Web App. È dedicato all'utilizzo dei dati Earth Observation aperti nel territorio vicentino e racchiude tre time:
+Questo repository contiene il codice Python necessario per l'elaborazione dei dati e per generare tre Web App. È dedicato all'utilizzo dei dati aperti Earth Observation nel territorio vicentino e racchiude tre time:
 
 1. [Inquinamento luminoso](http://dash-multipage.eu-south-1.elasticbeanstalk.com/inquinamento-luminoso)
 2. [Potenziale del fotovoltaico](http://dash-multipage.eu-south-1.elasticbeanstalk.com/fotovoltaico)
@@ -15,7 +15,7 @@ Questo repositorio contiene il codice Python necessario per l'elaborazione dei d
 ## Sommario
 
 - [Metodologia](#metodologia)
-- [Struttura del ripositorio](#struttura-del-ripositorio)
+- [Struttura del repository](#struttura-del-repository)
 - [Uso](#uso)
 - [Contatti](#contatti)
 - [Licenza](#licenza)
@@ -29,7 +29,7 @@ Le web app sono sviluppate con Python Dash, un Framework per la creazione di app
 3. Incrociando i dati satellitari con i limiti amministrativi, per ogni territorio comunale vengono calcolate le statistiche zonali tramite il software libero QGIS: i caratteri come media, mediana, deviazione standard, min e max che descrivono i valori estratti dalle immagini e rilevanti solo per questo comune.
 4. Ottenute le statistiche, possiamo tracciare i grafici. Per semplificare la rappresentanza dei fenomeni abbiamo scelto i caratteri media e deviazione standard.
 
-## Struttura del ripositorio
+## Struttura del repository
 
 * `/data`
   * `/input`
@@ -71,7 +71,7 @@ L'ultima libreria viene installata dall'internet, dunque non si specifica nessun
 
 ### Aggiustamenti manuali
 
-Si piò aggiornare i dataset vettoriali, usati dalle Web App, con i script dalla cartella `processing`. Ad es., se cambiano coordinate dei confini amministrativi di comuni.
+Si possono aggiornare i dataset vettoriali, usati dalle Web App, con i script dalla cartella `processing`. Ad es., se cambiano coordinate dei confini amministrativi di comuni.
 
 ## Contatti
 
