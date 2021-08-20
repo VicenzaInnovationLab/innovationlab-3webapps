@@ -76,10 +76,10 @@ Si piò aggiornare i dataset vettoriali, usati dalle Web App, con i script dalla
 ## Contatti
 
 - Sito
-  aziendale: [Digital Innovation Hub Vicenza](https://digitalinnovationhubvicenza.it/)
+  aziendale: [VicenzaInnovationLab](https://https://www.comune.vicenza.it/uffici/cms/innovationlabvicenza.php/)
 - Sviluppatore: [Yaroslav Vasyunin](https://www.linkedin.com/in/vasyunin)
 - Project
-  Link: [https://github.com/dihvicenza/infografiche-vi](https://github.com/dihvicenza/infografiche-vi)
+  Link: [https://github.com/VicenzaInnovationLab/innovationlab-3webapps](https://github.com/VicenzaInnovationLab/innovationlab-3webapps)
 
 ## Licenza
 
